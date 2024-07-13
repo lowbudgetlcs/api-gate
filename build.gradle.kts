@@ -2,6 +2,7 @@ val kotlin_version: String by project
 val logback_version: String by project
 val exposed_version: String by project
 val h2_version: String by project
+val is_dev: String by project
 
 plugins {
     kotlin("jvm") version "2.0.0"
@@ -13,10 +14,9 @@ group = "com.lowbudgetlcs"
 version = "0.0.1"
 
 application {
-    mainClass.set("com.lowbudgetlcs.ApplicationKt")
+    mainClass.set("com.lowbudgetlcs.AppKt")
 
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true")
 }
 
 repositories {
