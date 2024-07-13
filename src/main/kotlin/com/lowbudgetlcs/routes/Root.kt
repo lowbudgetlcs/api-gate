@@ -1,10 +1,8 @@
 package com.lowbudgetlcs.routes
 
 import io.ktor.server.application.*
-import io.ktor.server.routing.*
 import io.ktor.server.response.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import io.ktor.server.routing.*
 
 fun Application.root() {
     routing {
