@@ -1,30 +1,31 @@
 package com.lowbudgetlcs.routes
 
+import com.lowbudgetlcs.Result
 import io.ktor.http.*
+import io.ktor.serialization.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import java.lang.Math.random
 
 fun Application.riot() {
     routing {
         route("/riot") {
-            get("/game-end") {
+            post("/game-end") {
                 // Verify callback data
-                val result = async { getData() }
-                // Respond
-                call.respond(HttpStatusCode.OK, "Result: ${result.await()}")
-                // Asynch publish callback on rabbitmq
-                // Asynch invoke tournament engine
+                try {
+                    val body: Result = call.receive<Result>()
+                    // Respond
+                    call.respond(HttpStatusCode.OK)
+                    // Asynch publish callback on rabbitmq
+                    // Asynch invoke tournament engine
+                } catch (ex: IllegalStateException) {
+                    call.respond(HttpStatusCode.BadRequest, call.receive())
+                } catch (ex: JsonConvertException) {
+                    call.respond(HttpStatusCode.BadRequest, call.receive())
+                }
+
             }
         }
     }
-}
-
-suspend fun getData(): String {
-    val delay: Long = (random() * 10000).toLong()
-    delay(delay)
-    return "Waited ${delay / 1000.0} second${if (delay == 1L) "s" else ""}."
 }

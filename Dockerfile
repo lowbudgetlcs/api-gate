@@ -3,7 +3,7 @@ COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle buildFatJar --no-daemon
 
-FROM openjdk:17
+FROM eclipse-temurin:17-jre-alpine
 EXPOSE 9292:9292
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/api_gate.jar
