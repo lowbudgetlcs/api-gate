@@ -1,0 +1,7 @@
+.idea
+.kotlin
+build
+.gitignore
+README.md
+LICENSE
+docker-compose.yaml

@@ -7,7 +7,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 
-class ApplicationTest {
+class APIRouteTest {
     @Test
     fun testRoot() = testApplication {
         application {
@@ -15,7 +15,7 @@ class ApplicationTest {
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
+            assertEquals("Hello world!", bodyAsText())
         }
     }
 }
