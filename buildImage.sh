@@ -2,8 +2,8 @@
 
 # Usage: buildAndPushImage VERSION
 
-declare image=tournament_engine:"${1}"
-declare tag=lblcs/tournament_engine:"${1}"
+declare image=api_gate:"${1}"
+declare tag=lblcs/api_gate:"${1}"
 
 docker build -t "${image}" .
 docker tag "${image}" "${tag}"

@@ -1,1 +1,1 @@
-rootProject.name = "tournament-engine"
+rootProject.name = "api_gate"

@@ -1,11 +1,11 @@
 services:
-  tournament_engine:
-    image: lblcs/tournament_engine:latest
-    container_name: tournament_engine
+  api-gate:
+    image: lblcs/api_gate:latest
+    container_name: api_gate
     ports:
       - "1337:1337"
+    depends_on: [messageq]
 
   messageq:
     image: rabbitmq:latest
     container_name: messageq
-    depends_on: [tournament_engine]
