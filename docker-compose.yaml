@@ -1,7 +1,7 @@
 services:
   api-gate:
-    image: lblcs/api_gate:$VERSION
-    container_name: api_gate-$VERSION
+    image: lblcs/api_gate:{API_GATE_VERSION}
+    container_name: api_gate-{API_GATE_VERSION}
     environment:
       - HOST=rabbitmq
     ports:
