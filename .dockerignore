@@ -5,3 +5,4 @@ build
 README.md
 LICENSE
 docker-compose.yaml
+compose-app.local.yaml

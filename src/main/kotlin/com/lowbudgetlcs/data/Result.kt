@@ -1,4 +1,4 @@
-package com.lowbudgetlcs
+package com.lowbudgetlcs.data
 
 import kotlinx.serialization.Serializable
 

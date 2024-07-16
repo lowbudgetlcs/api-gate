@@ -1,6 +1,6 @@
 ###
 
-POST http://localhost:1337/riot/game-end
+POST http://localhost:1337/riot/callback
 Content-Type: application/json
 
 {

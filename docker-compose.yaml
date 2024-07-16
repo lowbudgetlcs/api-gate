@@ -1,11 +1,15 @@
 services:
   api-gate:
-    image: lblcs/api_gate:latest
-    container_name: api_gate
+    image: lblcs/api_gate:$VERSION
+    container_name: api_gate-$VERSION
+    environment:
+      - HOST=rabbitmq
     ports:
       - "1337:1337"
-    depends_on: [messageq]
+    networks:
+      - nginx.docker
 
-  messageq:
-    image: rabbitmq:latest
-    container_name: messageq
+networks:
+  nginx.docker:
+    name: nginx.docker
+    external: true

@@ -4,7 +4,7 @@ WORKDIR /home/gradle/src
 RUN gradle buildFatJar --no-daemon
 
 FROM eclipse-temurin:17-jre-alpine
-EXPOSE 9292:9292
+EXPOSE 1337:1337
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/api_gate.jar
 ENTRYPOINT ["java", "-jar", "/app/api_gate.jar"]
