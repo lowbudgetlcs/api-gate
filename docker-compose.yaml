@@ -1,15 +1,19 @@
 services:
   api-gate:
     image: lblcs/api_gate:{API_GATE_VERSION}
-    container_name: api_gate-{API_GATE_VERSION}
+    container_name: api_gate
     environment:
       - HOST=rabbitmq
     ports:
       - "1337:1337"
     networks:
       - nginx.docker
+      - rabbitmq.docker
 
 networks:
   nginx.docker:
     name: nginx.docker
+    external: true
+  rabbitmq.docker:
+    name: rabbitmq.docker
     external: true
