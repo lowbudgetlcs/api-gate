@@ -4,4 +4,4 @@ The internal engine driving the LBLCS tournaments, which handles tiebreakers and
 
 ### Running
 
-This application runs through docker-compose. It requires a rabbitMQ server to be running, and specifies the rabbitmq host with HOST= in a .env file.
+This application runs through docker-compose. It requires a rabbitMQ server to be running, and specifies the rabbitmq host with HOST= in the docker-compose.yaml. If the containers are on the same docker network, this is just the container name.
