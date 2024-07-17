@@ -3,7 +3,8 @@ services:
     image: lblcs/api_gate:{API_GATE_VERSION}
     container_name: api_gate
     environment:
-      - HOST=rabbitmq
+      - MESSAGEQ_HOST=rabbitmq
+      - EXCHANGE_NAME=RIOT_CALLBACKS
     ports:
       - "1337:1337"
     networks:

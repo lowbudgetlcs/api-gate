@@ -1,14 +1,13 @@
 package com.lowbudgetlcs.routes
 
-import com.lowbudgetlcs.Publisher.emit
-import com.lowbudgetlcs.data.Result
+import com.lowbudgetlcs.data.MatchResult
+import com.lowbudgetlcs.messageq.Publisher
 import io.ktor.http.*
-import io.ktor.serialization.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 
 fun Application.riot() {
@@ -16,21 +15,26 @@ fun Application.riot() {
     routing {
         route("/riot") {
             post("/callback") {
-                // Verify callback data
                 try {
-                    val body: Result = call.receive<Result>()
-                    logger.debug(body.toString())
-                    // Respond
-                    call.respond(HttpStatusCode.OK)
-                    // Asynch publish callback on rabbitmq
-                    emit("RIOT_CALLBACKS", body.toString(), arrayOf("callback"))
+                    val body: MatchResult = call.receive<MatchResult>()
+                    logger.debug("[x] Recieved valid post-game callback")
+                    // Save MatchResult to sqlite
+                    // Asynch publish callback on MQ
+                    launch {
+                        Publisher().emit(
+                            System.getenv("EXCHANGE_NAME") ?: "RIOT_CALLBACKS",
+                            body.toString(),
+                            arrayOf("callback")
+                        ).also {
+                            logger.debug("Successfully published callback")
+                        }
+                    }
                 } catch (ex: IllegalStateException) {
-                    call.respond(HttpStatusCode.BadRequest, call.receive())
-                } catch (ex: JsonConvertException) {
-                    call.respond(HttpStatusCode.BadRequest, call.receive())
-                } catch (ex: BadRequestException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                } catch (ex: ContentTransformationException) {
                     call.respond(HttpStatusCode.BadRequest)
                 }
+                call.respond(HttpStatusCode.OK)
             }
         }
     }
