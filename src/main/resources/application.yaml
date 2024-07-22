@@ -5,4 +5,3 @@ ktor:
   application:
     modules:
       - com.lowbudgetlcs.AppKt.module
-  development: true
