@@ -1,0 +1,21 @@
+name: Deploy on Prod
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute docker compose on prod server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd docker/lblcs
+            docker-compose -f api_gate.yaml down
+            docker-compose -f api_gate.yaml up -d
