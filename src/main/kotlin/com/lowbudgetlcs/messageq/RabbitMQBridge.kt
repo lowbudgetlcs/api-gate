@@ -9,7 +9,7 @@ object RabbitMQBridge {
     private val logger = LoggerFactory.getLogger("com.lowbudgetlcs.messageq.ConnectionManager")
     private const val EXCHANGE_NAME = "RIOT_CALLBACKS"
     private val factory = ConnectionFactory().apply {
-        host = System.getenv("MESSAGEQ_HOST") ?: "localhost"
+        host = System.getenv("MESSAGEQ_HOST") ?: "rabbitmq"
         isAutomaticRecoveryEnabled = true
         networkRecoveryInterval = 15000
     }
