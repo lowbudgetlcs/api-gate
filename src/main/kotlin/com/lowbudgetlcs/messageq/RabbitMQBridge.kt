@@ -16,7 +16,7 @@ object RabbitMQBridge {
 
     private val connection: Connection by lazy {
         factory.newConnection().also {
-            logger.debug("Created new messageq connection.")
+            logger.debug("[x] Created new messageq connection.")
         }
     }
 
@@ -24,14 +24,19 @@ object RabbitMQBridge {
         connection.createChannel().apply {
             exchangeDeclare(EXCHANGE_NAME, "topic")
         }.also {
-            logger.debug("Created new messageq channel.")
+            logger.debug("[x] Created new messageq channel.")
         }
     }
 
     fun emit(routingKey: Array<String>, message: String) {
-        channel.basicPublish(EXCHANGE_NAME, routingKey.joinToString("."), null, message.toByteArray(charset("UTF-8")))
+        channel.basicPublish(
+            EXCHANGE_NAME,
+            routingKey.joinToString("."),
+            null,
+            message.toByteArray(charset("UTF-8"))
+        )
             .also {
-                logger.debug("Broadcast {} on {}", message, routingKey)
+                logger.debug("[x] Broadcast {} on {}", message, routingKey)
             }
     }
 }

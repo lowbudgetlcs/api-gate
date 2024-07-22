@@ -27,16 +27,10 @@ fun Application.riot() {
                             arrayOf("callback"),
                             body.toString()
                         ).also {
-                            logger.debug("Successfully published callback")
+                            logger.debug("[x] Published callback.")
                         }
                     }
-                } catch (ex: IllegalStateException) {
-                    call.respond(HttpStatusCode.BadRequest)
-                    logger.error(ex.message, ex)
                 } catch (ex: ContentTransformationException) {
-                    call.respond(HttpStatusCode.BadRequest)
-                    logger.error(ex.message, ex)
-                } catch (ex: Exception) {
                     call.respond(HttpStatusCode.BadRequest)
                     logger.error(ex.message, ex)
                 }

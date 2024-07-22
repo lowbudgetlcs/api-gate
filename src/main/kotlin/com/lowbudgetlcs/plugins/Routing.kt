@@ -10,5 +10,5 @@ private val logger = LoggerFactory.getLogger("com.lowbudgetlcs.plugins.Routing")
 fun Application.configureRouting() {
     root()
     riot()
-    logger.debug("Routing configured.")
+    logger.debug("[x] Routing configured.")
 }

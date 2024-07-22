@@ -16,5 +16,5 @@ fun Application.configureSerialization() {
             ignoreUnknownKeys = true
         })
     }
-    logger.debug("Serialization configured.")
+    logger.debug("[x] Serialization configured.")
 }
