@@ -11,9 +11,9 @@ private val logger = LoggerFactory.getLogger("com.lowbudgetlcs.plugins.Serializa
 fun Application.configureSerialization() {
     install(ContentNegotiation) {
         json(Json {
-            ignoreUnknownKeys = true
             prettyPrint = true
             isLenient = true
+            ignoreUnknownKeys = true
         })
     }
     logger.debug("Serialization configured.")

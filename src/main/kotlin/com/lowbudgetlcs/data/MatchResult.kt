@@ -1,6 +1,6 @@
 package com.lowbudgetlcs.data
 
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 @Serializable
 data class MatchResult(
@@ -9,7 +9,7 @@ data class MatchResult(
     val metaData: Game,
     val gameId: Long?,
 
-){
+    ) {
     val gameName: String = ""
     val gameType: String = ""
     val gameMap: Int = -1

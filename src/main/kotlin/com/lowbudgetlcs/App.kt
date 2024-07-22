@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("com.lowbudgetlcs.App")
 
-fun main(args: Array<String>): Unit = io.ktor.server.tomcat.EngineMain.main(args)
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 
 fun Application.module() {
-    logger.info("[x] Starting embedded server...")
+    logger.info("[x] Configuring...")
     configureSerialization()
     configureRouting()
 }
