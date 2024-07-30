@@ -18,10 +18,11 @@ jobs:
           name: env
 
       - name: Import env
+        shell: bash
         run: |
           while read env; do
             echo $env >> $GITHUB_ENV
-          done <<< $( cat .env)
+          done <<< $(cat .env)
 
       - uses: actions/checkout@v4
 
@@ -53,6 +54,7 @@ jobs:
           name: env
 
       - name: Import env
+        shell: bash
         run: |
           while read env; do
             echo $env >> $GITHUB_ENV
