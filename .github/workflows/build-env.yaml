@@ -5,7 +5,7 @@ on:
 
 jobs:
   create_env:
-    runs-on: ubuntu-alpine
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
 

@@ -5,7 +5,7 @@ on:
 
 jobs:
   import-env:
-    runs-on: ubuntu-alpine
+    runs-on: self-hosted
     steps:
       - name: Download env artifact
         uses: actions/download-artifact@v4
