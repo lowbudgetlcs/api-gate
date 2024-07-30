@@ -37,14 +37,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download env
-        uses: actions/download-artifact@v4
-        with:
-          name: env
-        run: |
-          while read a; do
-            echo $a
-          done <<< $( cat .env)
+      - uses: ./github/workflows/import-env.yaml
 
       - name: Execute docker compose on prod server
         uses: appleboy/ssh-action@v1.0.3
