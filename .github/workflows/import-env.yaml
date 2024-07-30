@@ -11,6 +11,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: env
+
+      - name: Import env
         run: |
           while read env; do
             echo $env >> $GITHUB_ENV
