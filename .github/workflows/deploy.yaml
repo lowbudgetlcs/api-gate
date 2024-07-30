@@ -6,7 +6,7 @@ on:
 
 jobs:
   env:
-    uses: lowbudgetlcs/api_gate/.github/workflows/build-env.yaml@main
+    uses: ./.github/workflows/build-env.yaml@main
 
   build:
     needs: env
