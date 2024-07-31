@@ -1,5 +1,5 @@
 # tournament-engine
-The internal engine driving the LBLCS tournaments, which handles tiebreakers and calculates standings as series progress.
+This is the LBLCS api gate. Currently, it supports a single endpoint which we use to accept post-match callbacks from riot. Eventually, this will be the api each service queries to communicate data between each other. That is quite far away methinks...
 
 
 ### Running
