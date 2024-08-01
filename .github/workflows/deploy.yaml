@@ -22,7 +22,7 @@ jobs:
         run: |
           while read env; do
             echo $env >> $GITHUB_ENV
-          done <<< $(cat .env)
+          done <<< $(cat .env.art)
 
       - uses: actions/checkout@v4
 
@@ -68,6 +68,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd docker/lblcs
-            docker-compose -f ${{ env.APP }}.yaml down
-            docker-compose -f ${{ env.APP }}.yaml pull
-            docker-compose -f ${{ env.APP }}.yaml up -d
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d
