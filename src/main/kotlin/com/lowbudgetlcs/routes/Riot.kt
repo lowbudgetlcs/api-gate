@@ -8,6 +8,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 
 fun Application.riot() {
@@ -20,12 +22,12 @@ fun Application.riot() {
                     logger.debug("[x] Recieved {}", body)
                     call.respond(HttpStatusCode.OK)
                     // Save MatchResult to sqlite
-                    //launch {}
                     // Asynch publish callback on MQ
                     launch {
+                        val message = Json.encodeToString(body)
                         RabbitMQBridge.emit(
                             arrayOf("callback"),
-                            body.toString()
+                            message
                         ).also {
                             logger.debug("Successfully published callback")
                         }
