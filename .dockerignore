@@ -4,5 +4,5 @@ build
 .gitignore
 README.md
 LICENSE
-docker-compose.yaml
+compose.yaml
 compose-app.local.yaml

@@ -1,6 +1,6 @@
 services:
   api-gate:
-    image: lblcs/api_gate:latest
+    build: .
     container_name: api_gate
     environment:
       - MESSAGEQ_HOST=rabbitmq

@@ -39,11 +39,6 @@ jobs:
           docker push lblcs/${{ env.APP }}:latest
           docker logout
 
-      - name: Chain environment
-        run: |
-          echo "VERSION=${{ env.VERSION }}" >> $GITHUB_OUTPUT 
-          echo "APP=${{ env.APP }}" >> $GITHUB_OUTPUT 
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -58,7 +53,7 @@ jobs:
         run: |
           while read env; do
             echo $env >> $GITHUB_ENV
-          done <<< $( cat .env)
+          done <<< $( cat .env.art)
 
       - name: Execute docker compose on prod server
         uses: appleboy/ssh-action@v1.0.3
