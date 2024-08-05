@@ -6,9 +6,8 @@ import kotlinx.serialization.*
 data class MatchResult(
     val startTime: Long,
     val shortCode: String,
-    val metaData: Game,
+    val metaData: MetaData,
     val gameId: Long?,
-
     ) {
     val gameName: String = ""
     val gameType: String = ""
