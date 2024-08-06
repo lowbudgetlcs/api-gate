@@ -16,31 +16,30 @@ fun Application.riot() {
     val logger = LoggerFactory.getLogger("com.lowbudgetlcs.routes.Riot")
     routing {
         route("/riot") {
+            get("/callback") {
+                call.respond(HttpStatusCode.OK, "Hello world!")
+            }
             post("/callback") {
                 try {
+                    logger.info("[x] Recieved POST on {}", call.request.uri)
                     val body: MatchResult = call.receive<MatchResult>()
-                    logger.debug("[x] Recieved {}", body)
                     call.respond(HttpStatusCode.OK)
+                    val message = Json.encodeToString(body)
+                    logger.debug("MatchResult: {}", message)
                     // Save MatchResult to sqlite
                     // Asynch publish callback on MQ
                     launch {
-                        val message = Json.encodeToString(body)
                         RabbitMQBridge.emit(
                             arrayOf("callback"),
                             message
                         ).also {
-                            logger.debug("Successfully published callback")
+                            logger.debug("Successfully published {} on [callback] topic.", message)
                         }
                     }
-                } catch (ex: IllegalStateException) {
-                    call.respond(HttpStatusCode.BadRequest)
-                    logger.error(ex.message, ex)
                 } catch (ex: ContentTransformationException) {
                     call.respond(HttpStatusCode.BadRequest)
-                    logger.error(ex.message, ex)
-                } catch (ex: Exception) {
-                    call.respond(HttpStatusCode.BadRequest)
-                    logger.error(ex.message, ex)
+                    logger.error("Could not transform request body on {}.", call.request.uri)
+                    logger.error(ex.message)
                 }
             }
         }

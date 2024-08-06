@@ -28,10 +28,10 @@ object RabbitMQBridge {
         }
     }
 
-    fun emit(routingKey: Array<String>, message: String) {
-        channel.basicPublish(EXCHANGE_NAME, routingKey.joinToString("."), null, message.toByteArray(charset("UTF-8")))
+    fun emit(routingKeys: Array<String>, message: String) {
+        channel.basicPublish(EXCHANGE_NAME, routingKeys.joinToString("."), null, message.toByteArray(charset("UTF-8")))
             .also {
-                logger.debug("Broadcast {} on {}", message, routingKey)
+                logger.debug("Broadcast {} on {} topics.", message, routingKeys)
             }
     }
 }

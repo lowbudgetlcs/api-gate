@@ -8,10 +8,16 @@ data class MatchResult(
     val shortCode: String,
     val metaData: MetaData,
     val gameId: Long?,
-    ) {
+) {
     val gameName: String = ""
     val gameType: String = ""
     val gameMap: Int = -1
     val gameMode: String = ""
     val region: String = ""
 }
+
+@Serializable
+data class MetaData(
+    val gameNum: Int,
+    val seriesId: Int,
+)
