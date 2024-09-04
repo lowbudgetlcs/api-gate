@@ -11,7 +11,7 @@ jobs:
       - name: Build env file
         shell: bash
         run: |
-          touch ./.env
+          touch ./.env.art
           VER=$(cat VERSION)
           echo "VERSION=$VER" >> ./.env.art
           echo "APP=api_gate" >> ./.env.art
@@ -21,3 +21,4 @@ jobs:
         with:
           name: env
           path: ./.env.art
+          include-hidden-files: true
