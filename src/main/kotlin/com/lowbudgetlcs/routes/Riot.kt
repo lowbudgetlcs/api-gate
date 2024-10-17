@@ -30,8 +30,7 @@ fun Application.riot() {
                     // Asynch publish callback on MQ
                     launch {
                         RabbitMQBridge.emit(
-                            arrayOf("callback"),
-                            message
+                            arrayOf("callback"), message
                         ).also {
                             logger.debug("Successfully published {} on [callback] topic.", message)
                         }
@@ -40,6 +39,9 @@ fun Application.riot() {
                     call.respond(HttpStatusCode.BadRequest)
                     logger.error("Could not transform request body on {}.", call.request.uri)
                     logger.error(ex.message)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    logger.error("Recieved bad request body.")
                 }
             }
         }
